@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Архитектура. ШРИ-2018</title>
-    <script type="module">
-      import { ListStore } from './ListStore.js';
-      window.ListStore = ListStore;
-    </script>
+    <script src="EventEmitter.js"></script>
+    <script src="AppDispatcher.js"></script>
+    <script src="AppStore.js"></script>
     <link rel="import" href="/components/view-stub/view-stub.html">
   </head>
   <body>
-    <view-stub></view-stub>
+    <view-stub>
+    </view-stub>
   </body>
 </html>

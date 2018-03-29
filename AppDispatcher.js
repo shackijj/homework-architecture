@@ -1,20 +1,13 @@
-class Dispatcher {
-  constructor() {
-    this.callbacks = {};
+class Dispatcher extends EventEmitter {
+  register(callback) {
+    this.addListener('dispatch', callback);
   }
-
-  register(type, callback) {
-    if (this.callbacks[type]) {
-      this.callbacks[type].push(callback);
-    } else {
-      this.callbacks = [callback];
-    }
-  }
-
   dispatch(action) {
-    const actionCallbacks = this.callbacks[action.type];
-    actionCallbacks.forEach((cb) => cb(action));
+    const callbacks = this.callbacks['dispatch'];
+    if (callbacks) {
+      callbacks.forEach((cb) => cb(action));
+    }
   }
 }
 
-export const AppDispatcher = new Dispatcher();
+window.AppDispatcher = new Dispatcher();
