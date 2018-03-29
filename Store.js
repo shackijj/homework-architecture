@@ -33,8 +33,9 @@ class AppStore extends EventEmitter {
 }
 
 const appStore = new AppStore();
+const dispatcher = new Dispatcher();
 
-AppDispatcher.register(function(action) {
+dispatcher.register(function(action) {
   switch( action.type ) {
     case 'apply':
       appStore.input = action.data;
@@ -52,3 +53,4 @@ AppDispatcher.register(function(action) {
 });
 
 window.Store = appStore;
+window.AppDispatcher = dispatcher;

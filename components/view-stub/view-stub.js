@@ -1,17 +1,6 @@
-class ViewStub extends HTMLElement {
+class ViewStub extends ConnectedCompoment {
   constructor() {
-    super();
-    let importDoc = document.currentScript.ownerDocument;
-    let template = importDoc.getElementById('view-stub');
-    let templateContent = template.content;
-
-    this.attachShadow({mode: 'open'})
-      .appendChild(templateContent.cloneNode(true));
-
-    this.onStoreChange = this.onStoreChange.bind(this);
-    
-    this.onApply = this.onApply.bind(this);
-    window.Store.addListener('change', this.onStoreChange);
+    super('view-stub');
   }
   onApply() {
     window.Actions.apply(this.input.value);
@@ -32,7 +21,7 @@ class ViewStub extends HTMLElement {
     this.apply = this.shadowRoot.querySelector('.view-stub__apply');
     this.input = this.shadowRoot.querySelector('.view-stub__input');
     this.label = this.shadowRoot.querySelector('.view-stub__label');
-
+    this.onApply = this.onApply.bind(this);
     this.apply.addEventListener('click', this.onApply);
   }
 }

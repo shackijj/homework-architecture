@@ -1,14 +1,6 @@
-class ActionLogger extends HTMLElement {
+class ActionLogger extends ConnectedCompoment {
   constructor() {
-    super();
-    let importDoc = document.currentScript.ownerDocument;
-    let template = importDoc.getElementById('action-logger');
-    let templateContent = template.content;
-
-    this.attachShadow({mode: 'open'})
-      .appendChild(templateContent.cloneNode(true));
-
-    this.onStoreChange = this.onStoreChange.bind(this);
+    super('action-logger');
   }
   onStoreChange() {
     const markup = window.Store.logEntries
@@ -17,7 +9,6 @@ class ActionLogger extends HTMLElement {
     this.log.innerHTML = markup;
   }
   connectedCallback() {
-    window.Store.addListener('change', this.onStoreChange);
     this.log = this.shadowRoot.querySelector('.action-logger');
   }
 }
