@@ -24,6 +24,10 @@
     margin-left: 10px;
 }
 
+.view-stub__apply_loading {
+    background-color: #ddd;
+}
+
 .view-stub__label {
     width: 483px;
     background-color: #ddd;

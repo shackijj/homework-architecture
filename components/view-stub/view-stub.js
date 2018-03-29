@@ -9,16 +9,22 @@ class ViewStub extends HTMLElement {
       .appendChild(templateContent.cloneNode(true));
 
     this.onApply = this.onApply.bind(this);
-    this.updateLabel = this.updateLabel.bind(this);
+    this.onStoreChange = this.onStoreChange.bind(this);
   }
   onApply() {
-    window.AppDispatcher.dispatch({
-      type: 'apply',
-      data: this.input.value
-    });
+    window.Actions.apply(this.input.value);
   }
-  updateLabel() {
-    this.label.innerHTML = window.AppStore.input;
+  onStoreChange() {
+    if (window.Store.response) {
+      this.label.innerHTML = `Сервер принял данные ${window.Store.response}`;
+    }
+    if (window.Store.isLoading) {
+      this.apply.classList.add('view-stub__apply_loading')
+      this.apply.innerHTML = "Отправка данных";
+    } else {
+      this.apply.classList.remove('view-stub__apply_loading')
+      this.apply.innerHTML = "Отправить на сервер";
+    }
   }
   connectedCallback() {
     this.apply = this.shadowRoot.querySelector('.view-stub__apply');
@@ -26,7 +32,7 @@ class ViewStub extends HTMLElement {
     this.label = this.shadowRoot.querySelector('.view-stub__label');
 
     this.apply.addEventListener('click', this.onApply);
-    window.AppStore.addListener('change', this.updateLabel);
+    window.Store.addListener('change', this.onStoreChange);
   }
 }
 
