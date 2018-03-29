@@ -1,6 +1,7 @@
 class ViewStub extends HTMLElement {
   constructor() {
     super();
+    console.log(ListStore);
     let importDoc = document.currentScript.ownerDocument;
     let template = importDoc.getElementById('view-stub');
     let templateContent = template.content;
