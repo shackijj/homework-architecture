@@ -8,8 +8,10 @@ class ViewStub extends HTMLElement {
     this.attachShadow({mode: 'open'})
       .appendChild(templateContent.cloneNode(true));
 
-    this.onApply = this.onApply.bind(this);
     this.onStoreChange = this.onStoreChange.bind(this);
+    
+    this.onApply = this.onApply.bind(this);
+    window.Store.addListener('change', this.onStoreChange);
   }
   onApply() {
     window.Actions.apply(this.input.value);
@@ -32,7 +34,6 @@ class ViewStub extends HTMLElement {
     this.label = this.shadowRoot.querySelector('.view-stub__label');
 
     this.apply.addEventListener('click', this.onApply);
-    window.Store.addListener('change', this.onStoreChange);
   }
 }
 

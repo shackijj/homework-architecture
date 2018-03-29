@@ -1,12 +1,12 @@
-class Dispatcher extends EventEmitter {
+class Dispatcher {
+  constructor() {
+    this.callbacks = [];
+  }
   register(callback) {
-    this.addListener('dispatch', callback);
+    this.callbacks.push(callback);
   }
   dispatch(action) {
-    const callbacks = this.callbacks['dispatch'];
-    if (callbacks) {
-      callbacks.forEach((cb) => cb(action));
-    }
+    this.callbacks.forEach((cb) => cb(action));
   }
 }
 

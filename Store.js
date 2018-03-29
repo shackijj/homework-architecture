@@ -4,6 +4,7 @@ class AppStore extends EventEmitter {
     this._input = '';
     this._isLoading = false;
     this._response = '';
+    this._logEntries = [];
   }
   get input() {
     return this._input;
@@ -23,6 +24,12 @@ class AppStore extends EventEmitter {
   get response() {
     return this._response;
   }
+  get logEntries () {
+    return this._logEntries;
+  }
+  addLogEntry(entry) {
+    this._logEntries.push(entry);
+  }
 }
 
 const appStore = new AppStore();
@@ -39,6 +46,9 @@ AppDispatcher.register(function(action) {
       appStore.response = action.data;
       appStore.emit('change');
   }
+
+  appStore.addLogEntry(`${new Date()}: ${JSON.stringify(action)}`);
+  appStore.emit('change');
 });
 
 window.Store = appStore;
