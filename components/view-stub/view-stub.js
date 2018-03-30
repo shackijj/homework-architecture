@@ -1,7 +1,7 @@
 (function(owner) {
   class ViewStub extends WCF.ConnectedWebComponent {
     constructor() {
-      super(owner, 'view-stub', window.APP_STORE);
+      super(owner, 'view-stub', APP_STORE);
 
       this.apply = this.shadowRoot.querySelector('.view-stub__apply');
       this.input = this.shadowRoot.querySelector('.view-stub__input');
@@ -10,14 +10,14 @@
       this.apply.addEventListener('click', this.onApply);
     }
     onApply() {
-      const {isLoading} = window.APP_STORE.getState();
+      const {isLoading} = APP_STORE.getState();
       if (!isLoading) {
-        window.APP_ACTIONS.log('Presener получил сообщение от View');
-        window.APP_ACTIONS.apply(this.input.value);
+        APP_ACTIONS.log('Presener получил сообщение от View');
+        APP_ACTIONS.apply(this.input.value);
       }
     }
     onStoreChange() {
-      const {response, isLoading} = window.APP_STORE.getState();
+      const {response, isLoading} = APP_STORE.getState();
       if (response) {
         this.label.innerHTML = `Сервер принял данные ${response}`;
       }
