@@ -1,16 +1,17 @@
-class ActionLogger extends ConnectedCompoment {
-  constructor() {
-    super('action-logger');
+(function (owner) {
+  class ActionLogger extends window.WCF.ConnectedWebComponent {
+    constructor () {
+      super(owner, 'action-logger', window.APP_STORE);
+      this.log = this.shadowRoot.querySelector('.action-logger');
+    }
+    onStoreChange () {
+      const { logEntries } = window.APP_STORE.getState();
+      const markup = logEntries
+        .map((entry) => (`<li>${entry.date} - ${entry.message}</li>`))
+        .join('');
+      this.log.innerHTML = markup;
+    }
   }
-  onStoreChange() {
-    const markup = window.Store.logEntries
-      .map((entry) => (`<li>${entry}</li>`))
-      .join('');
-    this.log.innerHTML = markup;
-  }
-  connectedCallback() {
-    this.log = this.shadowRoot.querySelector('.action-logger');
-  }
-}
 
-customElements.define('action-logger', ActionLogger);
+  customElements.define('action-logger', ActionLogger);
+})(document.currentScript.ownerDocument);

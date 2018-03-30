@@ -3,16 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Архитектура. ШРИ-2018</title>
-    <script src="/lib/EventEmitter.js"></script>
-    <script src="/lib/Dispatcher.js"></script>
-    <script src="Actions.js"></script>
-    <script src="Store.js"></script>
-    <script src="/lib/ConnectedComponent.js"></script>
-    <link rel="import" href="/components/view-stub/view-stub.html">
-    <link rel="import" href="/components/action-logger/action-logger.html">
+    <!-- It's a polyfill not a library. See https://www.webcomponents.org/polyfills -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/webcomponents-lite.js"></script>
+  
+    <script src="/lib/WebComponentsFlux.js"></script>
+    <script src="index.js"></script>
+    <link rel="import" href="components/app-container/app-container.html">
   </head>
   <body>
-    <view-stub></view-stub>
-    <action-logger></action-logger>
+    <app-container></app-container>
   </body>
 </html>
