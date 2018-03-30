@@ -1,11 +1,11 @@
-(function() {
+(function () {
   const initalState = {
     input: '',
     isLoading: false,
     response: '',
     logEntries: []
   };
-  
+
   function reducer (state, action) {
     switch(action.type) {
       case 'apply':
@@ -30,7 +30,7 @@
         return state;
     }
   }
-  
+
   window.APP_STORE = new window.WCF.Store(reducer, initalState);
   window.APP_ACTIONS = {
     apply (text) {
@@ -42,7 +42,7 @@
         type: 'apply',
         data: text
       });
-  
+
       setTimeout(function () {
         window.APP_STORE.dispatch({
           type: 'log',
