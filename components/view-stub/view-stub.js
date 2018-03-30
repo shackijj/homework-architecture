@@ -1,7 +1,7 @@
 (function(owner) {
-  class ViewStub extends WCF.ConnectedCompoment {
+  class ViewStub extends WCF.ConnectedWebComponent {
     constructor() {
-      super(owner, 'view-stub');
+      super(window.APP_STORE, owner, 'view-stub');
       this.apply = this.shadowRoot.querySelector('.view-stub__apply');
       this.input = this.shadowRoot.querySelector('.view-stub__input');
       this.label = this.shadowRoot.querySelector('.view-stub__label');
@@ -9,13 +9,18 @@
       this.apply.addEventListener('click', this.onApply);
     }
     onApply() {
-      window.Actions.apply(this.input.value);
-    }
-    onStoreChange(store) {
-      if (store.response) {
-        this.label.innerHTML = `Сервер принял данные ${store.response}`;
+      const {isLoading} = window.APP_STORE.getState();
+      if (!isLoading) {
+        window.APP_ACTIONS.log('Presener получил сообщение от View');
+        window.APP_ACTIONS.apply(this.input.value);
       }
-      if (store.isLoading) {
+    }
+    onStoreChange() {
+      const {response, isLoading} = window.APP_STORE.getState();
+      if (response) {
+        this.label.innerHTML = `Сервер принял данные ${response}`;
+      }
+      if (isLoading) {
         this.apply.classList.add('view-stub__apply_loading')
         this.apply.innerHTML = "Отправка данных";
       } else {

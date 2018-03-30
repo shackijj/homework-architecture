@@ -1,10 +1,8 @@
 (function(owner) {
-  customElements.define('app-container', class extends HTMLElement {
-      constructor() {
-          super();
-          let shadowRoot = this.attachShadow({ mode: 'open' });
-          const content = owner.querySelector('#app-container').content;
-          shadowRoot.appendChild(content.cloneNode(true));
-      }
-  });
+  class AppContainer extends WCF.WebComponent {
+    constructor() {
+      super(owner, 'app-container');
+    }
+  }
+  customElements.define('app-container', AppContainer);
 })(document.currentScript.ownerDocument);

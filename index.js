@@ -11,14 +11,19 @@ function reducer(state, action) {
       return Object.assign({}, state, {
         input: action.data,
         isLoading: true,
-        logEntries: state.logEntries.concat([`${new Date()}: ${JSON.stringify(action)}`])
       });
       break;
     case 'response':
       return Object.assign({}, state, {
         response: action.data,
         isLoading: false,
-        logEntries: state.logEntries.concat([`${new Date()}: ${JSON.stringify(action)}`])
+      });
+    case 'log':
+      return Object.assign({}, state, {
+        logEntries: state.logEntries.concat([{
+          date: new Date(),
+          message: action.data
+        }])
       });
     default:
       return state;
@@ -26,9 +31,13 @@ function reducer(state, action) {
 }
 
 
-window.APP_STORE = WCF.createStore(reducer, initalState);
+window.APP_STORE = new WCF.Store(reducer, initalState);
 window.APP_ACTIONS = {
-  apply: function(text) {
+  apply(text) {
+    window.APP_STORE.dispatch({
+      type: 'log',
+      data: 'Данные отправляются в Model'
+    });
     window.APP_STORE.dispatch({
       type: 'apply',
       data: text
@@ -36,9 +45,19 @@ window.APP_ACTIONS = {
 
     setTimeout(function() {
       window.APP_STORE.dispatch({
+        type: 'log',
+        data: 'Данные принимаются из Model и отправляются Presenter'
+      });
+      window.APP_STORE.dispatch({
         type: 'response',
         data: text,
       });
     }, 500);
+  },
+  log(text) {
+    window.APP_STORE.dispatch({
+      type: 'log',
+      data: text
+    });
   }
 };

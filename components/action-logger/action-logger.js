@@ -1,12 +1,13 @@
 (function(owner) {
-  class ActionLogger extends WCF.ConnectedCompoment {
+  class ActionLogger extends WCF.ConnectedWebComponent {
     constructor() {
-      super(owner, 'action-logger');
+      super(window.APP_STORE, owner, 'action-logger');
       this.log = this.shadowRoot.querySelector('.action-logger');
     }
-    onStoreChange({logEntries}) {
-      const markup = store.logEntries
-        .map((entry) => (`<li>${entry}</li>`))
+    onStoreChange() {
+      const { logEntries } = window.APP_STORE.getState();
+      const markup = logEntries
+        .map((entry) => (`<li>${entry.date} - ${entry.message}</li>`))
         .join('');
       this.log.innerHTML = markup;
     }
