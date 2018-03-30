@@ -1,7 +1,7 @@
 (function(owner) {
   class ActionLogger extends WCF.ConnectedWebComponent {
     constructor() {
-      super(window.APP_STORE, owner, 'action-logger');
+      super(owner, 'action-logger', window.APP_STORE);
       this.log = this.shadowRoot.querySelector('.action-logger');
     }
     onStoreChange() {

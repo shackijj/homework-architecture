@@ -1,7 +1,8 @@
 (function(owner) {
   class ViewStub extends WCF.ConnectedWebComponent {
     constructor() {
-      super(window.APP_STORE, owner, 'view-stub');
+      super(owner, 'view-stub', window.APP_STORE);
+
       this.apply = this.shadowRoot.querySelector('.view-stub__apply');
       this.input = this.shadowRoot.querySelector('.view-stub__input');
       this.label = this.shadowRoot.querySelector('.view-stub__label');
