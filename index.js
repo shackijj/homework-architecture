@@ -5,18 +5,18 @@ const initalState = {
   logEntries: []
 };
 
-function reducer(state, action) {
+function reducer (state, action) {
   switch(action.type) {
     case 'apply':
       return Object.assign({}, state, {
         input: action.data,
-        isLoading: true,
+        isLoading: true
       });
       break;
     case 'response':
       return Object.assign({}, state, {
         response: action.data,
-        isLoading: false,
+        isLoading: false
       });
     case 'log':
       return Object.assign({}, state, {
@@ -30,10 +30,9 @@ function reducer(state, action) {
   }
 }
 
-
-window.APP_STORE = new WCF.Store(reducer, initalState);
+window.APP_STORE = new window.WCF.Store(reducer, initalState);
 window.APP_ACTIONS = {
-  apply(text) {
+  apply (text) {
     window.APP_STORE.dispatch({
       type: 'log',
       data: 'Данные отправляются в Model'
@@ -43,18 +42,18 @@ window.APP_ACTIONS = {
       data: text
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.APP_STORE.dispatch({
         type: 'log',
         data: 'Данные принимаются из Model и отправляются Presenter'
       });
       window.APP_STORE.dispatch({
         type: 'response',
-        data: text,
+        data: text
       });
     }, 500);
   },
-  log(text) {
+  log (text) {
     window.APP_STORE.dispatch({
       type: 'log',
       data: text

@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-default",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+      "semi": [
+          "error",
+          "always"
+      ],
+      "no-undef": "error",
+      "no-unused-vars":"error"
+  }
+}

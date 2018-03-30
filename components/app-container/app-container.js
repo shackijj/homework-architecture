@@ -1,6 +1,6 @@
-(function(owner) {
-  class AppContainer extends WCF.WebComponent {
-    constructor() {
+(function (owner) {
+  class AppContainer extends window.WCF.WebComponent {
+    constructor () {
       super(owner, 'app-container');
     }
   }
